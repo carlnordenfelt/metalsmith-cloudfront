@@ -1,0 +1,30 @@
+{
+    "name": "metalsmith-cloudfront",
+    "version": "0.0.1",
+    "description": "A Metalsmith.io plugin to invalidate Amazon CloudFront caches",
+    "main": "lib/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/carlnordenfelt/metalsmith-cloudfront"
+    },
+    "keywords": [
+        "Metalsmith.io",
+        "CloudFront",
+        "Cache",
+        "Invalidation",
+        "Amazon",
+        "AWS"
+    ],
+    "author": "Carl Nordenfelt",
+    "license": "MIT",
+    "issues": {
+        "url": "https://github.com/carlnordenfelt/metalsmith-cloudfront/issues"
+    },
+    "homepage": "https://github.com/carlnordenfelt/metalsmith-cloudfront",
+    "dependencies": {
+        "aws-sdk": "~2.5.3"
+    }
+}
