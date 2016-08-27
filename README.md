@@ -18,8 +18,8 @@ $ npm install metalsmith-cloudfront
 # Usage
 ```node
 var Metalsmith = require('metalsmith');
-var cloudfront = require('metalsmith-s3');
-var s3 = require('metalsmith-cloudfront');
+var s3 = require('metalsmith-s3');
+var cloudfront = require('metalsmith-cloudfront');
 
 var metalsmith = new Metalsmith(__dirname)
   .use(s3({
