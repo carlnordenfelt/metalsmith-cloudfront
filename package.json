@@ -1,30 +1,46 @@
 {
-    "name": "metalsmith-cloudfront",
-    "version": "0.0.1",
-    "description": "A Metalsmith.io plugin to invalidate Amazon CloudFront caches",
-    "main": "lib/index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/carlnordenfelt/metalsmith-cloudfront"
-    },
-    "keywords": [
-        "Metalsmith.io",
-        "CloudFront",
-        "Cache",
-        "Invalidation",
-        "Amazon",
-        "AWS"
-    ],
-    "author": "Carl Nordenfelt",
-    "license": "MIT",
-    "issues": {
-        "url": "https://github.com/carlnordenfelt/metalsmith-cloudfront/issues"
-    },
-    "homepage": "https://github.com/carlnordenfelt/metalsmith-cloudfront",
-    "dependencies": {
-        "aws-sdk": "~2.5.3"
-    }
+  "name": "metalsmith-cloudfront",
+  "version": "0.0.1",
+  "description": "A Metalsmith.io plugin to invalidate Amazon CloudFront caches",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "npm install && npm run lint && npm run test-unit-ci && npm run coverage",
+    "test-unit": "NODE_ENV=TEST istanbul cover --include-all-sources true -x \"_scripts/**/*\" -x \"web/**/*\" ./node_modules/mocha/bin/_mocha ./tests/unit -- --recursive",
+    "coverage": "istanbul check-coverage --statement 100 --branches 100 --functions 100 --lines 100",
+    "lint": "eslint --max-warnings 0 src",
+    "q": "npm run lint && npm run test-unit && npm run coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carlnordenfelt/metalsmith-cloudfront"
+  },
+  "keywords": [
+    "Metalsmith.io",
+    "CloudFront",
+    "Cache",
+    "Invalidation",
+    "Amazon",
+    "AWS"
+  ],
+  "author": "Carl Nordenfelt",
+  "license": "MIT",
+  "issues": {
+    "url": "https://github.com/carlnordenfelt/metalsmith-cloudfront/issues"
+  },
+  "homepage": "https://github.com/carlnordenfelt/metalsmith-cloudfront",
+  "dependencies": {
+    "aws-sdk": "~2.5.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.12",
+    "eslint": "1.10.1",
+    "eslint-config-defaults": "7.1.1",
+    "eslint-plugin-filenames": "0.2.0",
+    "expect": "^1.20.2",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.0.2",
+    "mockery": "^1.7.0",
+    "sinon": "^1.17.5"
+  }
 }
