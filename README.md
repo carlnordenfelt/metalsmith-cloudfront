@@ -1,5 +1,5 @@
 # metalsmith-cloudfront
-Metalsmith plugin for invalidating files in Amazon CloudFront cache.
+[Metalsmith](http://www.metalsmith.io/) plugin for invalidating files in Amazon CloudFront cache.
 To be used in conjunction with [metalsmith-s3](https://github.com/mwishek/metalsmith-s3).
 
 Details on CloudFront cache invalidation: http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html
