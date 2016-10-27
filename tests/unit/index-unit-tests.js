@@ -81,8 +81,9 @@ describe('index unit tests', function () {
         it('should succeed', function (done) {
             var params = { dist: 'dist', paths: ['string'] };
             var pluginFn = subject(params);
-            subject(params)({}, {}, function () {
-                expect(true).to.equal(true);
+            subject(params)({}, {}, function (error, files) {
+                expect(error).to.equal(null);
+                expect(files).to.be.an('object');
                 done();
             });
 
@@ -90,12 +91,10 @@ describe('index unit tests', function () {
         it('should fail due to AWS error', function (done) {
             var params = { dist: 'dist', paths: ['string'] };
             createInvalidationStub.yields('CreateInvalidationError');
-            function fn() {
-                subject(params)();
-            }
-
-            expect(fn).to.throw('Error: CreateInvalidationError');
-            done();
+            subject(params)({}, {}, function (error) {
+                expect(error).to.equal('CreateInvalidationError');
+                done();
+            });
         });
     });
 });
