@@ -1,6 +1,5 @@
 #0.0.3
-Added unit tests
-
+Callback now returns files object
 #0.0.2
 Added unit tests
 
