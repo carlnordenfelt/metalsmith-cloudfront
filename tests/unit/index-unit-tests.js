@@ -1,16 +1,19 @@
 'use strict';
 
-var expect = require('chai').expect;
-var mockery = require('mockery');
-var sinon = require('sinon');
-var subject;
+const expect  = require('chai').expect;
+const mockery = require('mockery');
+const sinon   = require('sinon');
+
+let subject;
 
 describe('index unit tests', function () {
-    var createInvalidationStub;
+    let createInvalidationStub;
+
     after(function () {
         mockery.deregisterAll();
         mockery.disable();
     });
+
     before(function (done) {
         mockery.enable({
             useCleanCache: true,
@@ -18,19 +21,21 @@ describe('index unit tests', function () {
         });
         createInvalidationStub = sinon.stub();
 
-        var awsMock = {
+        const awsMock = {
             CloudFront: function () {
                 this.createInvalidation = createInvalidationStub;
             }
         };
         mockery.registerMock('aws-sdk', awsMock);
-        subject = require('../../lib/index.js');
+        subject = require('../../src/index.js');
         done();
     });
+
     beforeEach(function () {
-        createInvalidationStub.reset().resetBehavior();
+        createInvalidationStub.reset();
         createInvalidationStub.yields(null, {});
     });
+
     describe('input validation', function () {
         it('should fail due to missing config', function (done) {
             function fn() {
@@ -41,7 +46,7 @@ describe('index unit tests', function () {
             done();
         });
         it('should fail due to missing parameter dist', function (done) {
-            var params = {};
+            const params = {};
 
             function fn() {
                 subject(params);
@@ -51,7 +56,7 @@ describe('index unit tests', function () {
             done();
         });
         it('should fail due to missing parameter paths', function (done) {
-            var params = { dist: 'dist' };
+            const params = { dist: 'dist' };
 
             function fn() {
                 subject(params);
@@ -61,7 +66,7 @@ describe('index unit tests', function () {
             done();
         });
         it('should fail due to invalid parameter paths', function (done) {
-            var params = { dist: 'dist', paths: 'string' };
+            const params = { dist: 'dist', paths: 'string' };
 
             function fn() {
                 subject(params);
@@ -71,17 +76,17 @@ describe('index unit tests', function () {
             done();
         });
         it('should succeed', function (done) {
-            var params = { dist: 'dist', paths: ['string'] };
-            var fn = subject(params);
+            const params = { dist: 'dist', paths: ['string'] };
+            const fn     = subject(params);
             expect(fn).to.be.a('function');
             done();
         });
     });
     describe('Calling AWS sdk', function () {
         it('should succeed', function (done) {
-            var params = { dist: 'dist', paths: ['string'] };
-            var pluginFn = subject(params);
-            subject(params)({}, {}, function (error, files) {
+            const params   = { dist: 'dist', paths: ['string'] };
+            const pluginFn = subject(params);
+            subject(params)({}, {}, function (error, files) {
                 expect(error).to.equal(null);
                 expect(files).to.be.an('object');
                 done();
@@ -89,7 +94,7 @@ describe('index unit tests', function () {
 
         });
         it('should fail due to AWS error', function (done) {
-            var params = { dist: 'dist', paths: ['string'] };
+            const params = { dist: 'dist', paths: ['string'] };
             createInvalidationStub.yields('CreateInvalidationError');
             subject(params)({}, {}, function (error) {
                 expect(error).to.equal('CreateInvalidationError');

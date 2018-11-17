@@ -1,7 +1,5 @@
-'use strict';
-
-var aws = require('aws-sdk');
-var cloudfront = new aws.CloudFront({ apiVersion: '2016-08-01' });
+const aws        = require('aws-sdk');
+const cloudfront = new aws.CloudFront({ apiVersion: '2016-08-01' });
 
 module.exports = plugin;
 
@@ -15,19 +13,18 @@ module.exports = plugin;
  */
 
 function plugin(config) {
-
     if (!config) {
         throw new TypeError('Missing configuration.');
     } else if (!config.dist) {
         throw new TypeError('Missing property [dist].');
     } else if (!config.paths) {
         throw new TypeError('Missing property [paths].');
-    } else if (!(config.paths instanceof Array) || config.paths.length === 0) {
+    } else if (!(config.paths instanceof Array) || config.paths.length === 0) {
         throw new TypeError('Property [paths] must be an array with at least one value.');
     }
 
-    return function (files, metalsmith, done) {
-        var params = {
+    return (files, _metalsmith, done) => {
+        const params = {
             DistributionId: config.dist,
             InvalidationBatch: {
                 CallerReference: 'metalsmith-cloudfront-' + Date.now(),
@@ -37,7 +34,8 @@ function plugin(config) {
                 }
             }
         };
-        cloudfront.createInvalidation(params, function (error) {
+
+        cloudfront.createInvalidation(params, (error) => {
             done(error, files);
         });
     };
